@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 
-from resource.auth_resource import AuthResource
+from resource.data_resource import DataResource
 
 
 def create_app():
