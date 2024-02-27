@@ -13,17 +13,7 @@ def valid_token(func):
 
     @wraps(func)
     def decorator(*args, **kwargs):
-        if 'Authorization' in request.headers:
-            token = request.headers['Authorization']
-            try:
-                data = jwt.decode(token[7:], current_app.config['ACCESS_TOKEN_KEY'], algorithms=["HS256"])
-                g.userrole = data['userrole']
-            except Exception:
-                return make_response('Invalid token!', 401)
-
-            return func(*args, **kwargs)
-        else:
-            return make_response('token is missing!', 401)
+        return make_response('token is invalid or missing!', 401)
 
     return decorator
 
@@ -37,9 +27,6 @@ def customer_required(func):
 
     @wraps(func)
     def decorator(*args, **kwargs):
-        if 'userrole' in g:
-            if g.userrole in ['customer', 'employee', 'admin']:
-                return func(*args, **kwargs)
         return make_response('You shall not pass!', 401)
     return decorator
 
@@ -53,9 +40,6 @@ def employee_required(func):
 
     @wraps(func)
     def decorator(*args, **kwargs):
-        if 'userrole' in g:
-            if g.userrole in ['employee', 'admin']:
-                return func(*args, **kwargs)
         return make_response('You shall not pass!', 401)
     return decorator
 
@@ -69,8 +53,5 @@ def admin_required(func):
 
     @wraps(func)
     def decorator(*args, **kwargs):
-        if 'userrole' in g:
-            if g.userrole == 'admin':
-                return func(*args, **kwargs)
         return make_response('You shall not pass!', 401)
     return decorator

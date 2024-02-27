@@ -5,8 +5,6 @@ from authorization import valid_token, customer_required, employee_required, adm
 
 
 class DataResource(Resource):
-    @valid_token
-    @customer_required
     def get(self):
         """
         reads some data
@@ -14,8 +12,6 @@ class DataResource(Resource):
         """
         return make_response('Some data', 200)
 
-    @valid_token
-    @employee_required
     def post(self):
         """
         saves some data
@@ -23,8 +19,6 @@ class DataResource(Resource):
         """
         return make_response('data saved', 201)
 
-    @valid_token
-    @admin_required
     def delete(self):
         """
         deletes some data
