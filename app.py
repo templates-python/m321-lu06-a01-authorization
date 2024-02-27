@@ -11,7 +11,7 @@ def create_app():
     app.config.from_pyfile('./.env')
     api = Api(app)
 
-    api.add_resource(AuthResource, '/login')
+    api.add_resource(DataResource, '/')
     return app
 
 if __name__ == '__main__':
